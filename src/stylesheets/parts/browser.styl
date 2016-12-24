@@ -1,0 +1,50 @@
+.fashion-title
+	&__titlered3
+		margin-top 109px
+		font-size 16px
+		font-family "Exo"
+		color rgb(255, 109, 109)
+		line-height 3.125
+		text-align center
+	&__titleblack3
+		font-size 40px
+		font-family "Exo"
+		color rgb(40, 40, 40)
+		line-height 1.25
+		text-align center
+	&__discription3
+		margin-top 30px
+		font-size 16px
+		font-family "Exo"
+		color rgba(40, 40, 40, 0.659)
+		line-height 1.625
+		text-align center
+	&__pict
+		text-align center
+		margin-top 100px
+.fashion-steps
+	position relative
+	width 5em
+	height 5em
+	margin 7em auto
+	border .2em solid mediumturquoise
+	border-radius: 50%
+	font-size 1.2em
+	margin-top -201px
+	&::before
+		content ''
+		display inline-block
+		position absolute
+		width .1em
+		height 2.1em
+		left 2.5em
+		top .4em
+		background mediumturquoise
+		animation timing 60s infinite steps(60)
+		transform-origin 0 2.1em
+		
+	@keyframes timing {
+	100%{
+		transform: rotate(360deg);
+		}
+	}

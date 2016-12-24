@@ -1,0 +1,23 @@
+include ./bemto/bemto.pug
+- set_bemto_settings({ prefix: 'fashion-' })
+
+doctype
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		title Fashion
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+		link(rel="stylesheet", href="./stylesheets/main.css")
+		link(href="https://fonts.googleapis.com/css?family=Exo:100,400,400i,500|Lato" rel="stylesheet")
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
+	body
+		.wrapper
+			include ./parts/_header
+			.content
+				block content
+
+		
+		script(src="./javascripts/main.js")
+		script(type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js")
+		script(type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js")
+		script(src="./javascripts/parts/slick.js")
