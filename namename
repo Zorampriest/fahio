@@ -1,0 +1,78 @@
+#вводные библиотеки
+import time
+import random
+import string
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+
+#проверка полей авторизации
+class testAuthClass():
+    """
+    Класс для проверки авторизации
+    """
+
+    def testAuth(self, login, pasword) -> bool:
+        """
+        Метод для логина
+        :param login: Логин
+        :param pasword: Пароль
+        :return: True - Авторизациия прошла успешно, False - ошибка авторизации
+        """
+        # опция для настройки сеанса селениума в хроме(она открывает хром без кэша, кук, расширений и тд)
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option("excludeSwitches", ["enable-logging"])
+
+        #расположение драйвера браузера
+        driver = webdriver.Chrome(options=options, executable_path='C:/DevTools/Python310/chromedriver.exe')
+        #вход на страницу авторизации
+        driver.get("https://qa.neapro.site/login")
+        #поиск на странице строки ввода логина/ввод логина
+        driver.find_element(By.CSS_SELECTOR, ".fieldset:nth-child(1) input").send_keys(login)
+        # поиск на странице строки ввода пароля/ввод пароля
+        driver.find_element(By.CSS_SELECTOR, ".fieldset:nth-child(2) input").send_keys(pasword)
+        # поиск на странице кнопки "подтвердить".клик
+        driver.find_element(By.CSS_SELECTOR, ".btn").click()
+        #время для перехода на заглавную страницу
+        time.sleep(5)
+        #переменные для тестирования авторизации, тру-прошло, фалс - не прошла авторизация
+        if driver.current_url == 'https://qa.neapro.site/schedule':
+            return True
+        return False
+
+        time.sleep(5)
+
+#возможные комбинации ввода(не все)
+if __name__ == '__main__':
+# тест с валидными данными(позитивное тестирование)
+    x = testAuthClass()
+    x.testAuth('balaslera@gmail.com', 'eva13vania16')
+
+#негативные тесты
+#тест на отправку пустых строк
+    neg = testAuthClass()
+#вызов отклика на БАГ
+    if neg.testAuth('',''):
+        raise Exception('Ошибка авторизации 0')
+
+#тест на отправку admin(техника предугадывания)
+    notValid = testAuthClass()
+    if notValid.testAuth('admin', 'admin'):
+        raise Exception('Ошибка авторизации adm')
+
+#тест с числовыми значениями
+    notValid123 = testAuthClass()
+    if notValid123.testAuth('1237689','1237689'):
+        raise Exception('Ошибка авторизации 123')
+
+#тест на количество допустимых символов
+    notValidABC = testAuthClass()
+#метод заполняет строки буквами нижнего регистра латинского алфавита вперемешку
+    letters = string.ascii_lowercase
+    long_string = ''.join(random.choice(letters) for i in range(100))
+    if notValidABC.testAuth.letters("long_string", "long_string"):
+        raise Exception('Ошибка авторизации 8')
